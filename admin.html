@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة الإدارة — أعمال لمار</title>
+    <link rel="stylesheet" href="admin-style.css">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"></noscript>
+</head>
+<body>
+
+<!-- ======= شاشة تسجيل الدخول ======= -->
+<div id="login-screen" class="login-screen">
+    <div class="login-card">
+        <div class="login-logo">
+            <img src="img/logo-white.png" alt="Lamar Pro">
+        </div>
+        <h2>لوحة إدارة المحتوى</h2>
+        <p class="login-sub">أدخل كلمة السر للوصول</p>
+        <div class="login-form">
+            <div class="input-wrap">
+                <i class="fa-solid fa-lock"></i>
+                <label for="login-pass" class="sr-only">كلمة السر</label>
+                <input type="password" id="login-pass" placeholder="كلمة السر" autocomplete="current-password" aria-label="كلمة السر">
+                <button type="button" id="toggle-pass" aria-label="إظهار أو إخفاء كلمة السر"><i class="fa-solid fa-eye" aria-hidden="true"></i></button>
+            </div>
+            <div id="login-error" class="login-error" style="display:none"></div>
+            <button id="login-btn" class="login-submit-btn">
+                <span>دخول</span> <i class="fa-solid fa-arrow-left"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- ======= لوحة الإدارة ======= -->
+<div id="admin-panel" class="admin-panel" style="display:none">
+
+    <!-- الشريط الجانبي -->
+    <aside class="admin-sidebar">
+        <div class="sidebar-logo">
+            <img src="img/logo-white.png" alt="Lamar">
+            <span>لوحة الإدارة</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-item active" data-view="dashboard">
+                <i class="fa-solid fa-gauge"></i> لوحة التحكم
+            </a>
+            <a href="#" class="nav-item" data-view="add">
+                <i class="fa-solid fa-plus-circle"></i> إضافة محتوى
+            </a>
+            <a href="lamar.html" target="_blank" class="nav-item">
+                <i class="fa-solid fa-globe"></i> معاينة الموقع
+            </a>
+        </nav>
+        <button id="logout-btn" class="logout-btn">
+            <i class="fa-solid fa-right-from-bracket"></i> تسجيل الخروج
+        </button>
+    </aside>
+
+    <!-- المنطقة الرئيسية -->
+    <main class="admin-main">
+
+        <!-- ===== عرض: لوحة التحكم ===== -->
+        <div id="view-dashboard" class="admin-view active">
+            <div class="view-header">
+                <h1><i class="fa-solid fa-gauge"></i> لوحة التحكم</h1>
+            </div>
+
+            <!-- الإحصائيات -->
+            <div class="stats-row" id="stats-row">
+                <div class="stat-card">
+                    <i class="fa-solid fa-newspaper stat-icon news-icon"></i>
+                    <div>
+                        <h3 id="count-news">0</h3>
+                        <p>أخبار</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-calendar-star stat-icon events-icon"></i>
+                    <div>
+                        <h3 id="count-events">0</h3>
+                        <p>فعاليات</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-circle-play stat-icon videos-icon"></i>
+                    <div>
+                        <h3 id="count-videos">0</h3>
+                        <p>مقاطع</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <i class="fa-solid fa-layer-group stat-icon total-icon"></i>
+                    <div>
+                        <h3 id="count-total">0</h3>
+                        <p>إجمالي</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- فلتر + شبكة البطاقات -->
+            <div class="view-header" style="margin-top:28px">
+                <h2>المحتوى المنشور</h2>
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-type="all">الكل</button>
+                    <button class="filter-tab" data-type="news">أخبار</button>
+                    <button class="filter-tab" data-type="events">فعاليات</button>
+                    <button class="filter-tab" data-type="videos">مقاطع</button>
+                </div>
+            </div>
+
+            <div class="items-grid" id="items-grid">
+                <div class="empty-state" id="empty-state">
+                    <i class="fa-solid fa-inbox"></i>
+                    <p>لا يوجد محتوى بعد — أضف أول بطاقة من قسم "إضافة محتوى"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== عرض: إضافة / تعديل ===== -->
+        <div id="view-add" class="admin-view">
+            <div class="view-header">
+                <h1 id="form-view-title"><i class="fa-solid fa-plus-circle"></i> إضافة محتوى جديد</h1>
+            </div>
+
+            <form id="media-form" class="media-form" novalidate>
+                <input type="hidden" id="edit-id">
+
+                <!-- نوع المحتوى -->
+                <div class="form-section">
+                    <label class="section-label">نوع المحتوى</label>
+                    <div class="type-selector">
+                        <label class="type-opt" data-type="news">
+                            <input type="radio" name="type" value="news" checked>
+                            <span><i class="fa-solid fa-newspaper"></i> خبر</span>
+                        </label>
+                        <label class="type-opt" data-type="events">
+                            <input type="radio" name="type" value="events">
+                            <span><i class="fa-solid fa-calendar-star"></i> فعالية</span>
+                        </label>
+                        <label class="type-opt" data-type="videos">
+                            <input type="radio" name="type" value="videos">
+                            <span><i class="fa-solid fa-circle-play"></i> مقطع</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- العنوان -->
+                <div class="form-group">
+                    <label for="f-title">العنوان <span class="req">*</span></label>
+                    <input type="text" id="f-title" placeholder="أدخل عنوان الخبر أو الفعالية...">
+                </div>
+
+                <!-- الملخص -->
+                <div class="form-group">
+                    <label for="f-summary">الملخص <span class="req">*</span></label>
+                    <textarea id="f-summary" rows="3" placeholder="أضف وصفاً قصيراً..."></textarea>
+                </div>
+
+                <!-- التاريخ -->
+                <div class="form-group">
+                    <label for="f-date">التاريخ <span class="req">*</span></label>
+                    <input type="month" id="f-date">
+                </div>
+
+                <!-- رفع الصور / الفيديو — متعدد -->
+                <div class="form-section">
+                    <label class="section-label">الصور أو الفيديو <small style="font-weight:400;text-transform:none;letter-spacing:0;color:#aab3c0">(يمكن إضافة أكثر من صورة)</small></label>
+                    <div class="upload-zone" id="upload-zone">
+                        <i class="fa-solid fa-images"></i>
+                        <p>اسحب وأفلت الصور هنا، أو <span class="upload-browse">تصفح</span></p>
+                        <small>صور: JPG، PNG، WebP — فيديو: MP4 · الحد 40MB</small>
+                        <input type="file" id="file-input" accept="image/*,video/mp4,video/webm" multiple style="display:none">
+                    </div>
+                    <div class="multi-preview-grid" id="multi-preview-grid"></div>
+                    <div class="upload-progress" id="upload-progress" style="display:none">
+                        <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+                        <span id="progress-text">جارٍ الرفع...</span>
+                    </div>
+                </div>
+
+                <!-- رابط يوتيوب (مقاطع فقط) -->
+                <div class="form-group" id="youtube-group" style="display:none">
+                    <label for="f-video-url">رابط يوتيوب (اختياري بدلاً من الرفع)</label>
+                    <input type="url" id="f-video-url" placeholder="https://youtube.com/watch?v=...">
+                </div>
+
+                <!-- أزرار -->
+                <div class="form-actions">
+                    <button type="submit" class="btn-save" id="save-btn">
+                        <i class="fa-solid fa-floppy-disk"></i> <span id="save-btn-text">حفظ ونشر</span>
+                    </button>
+                    <button type="button" class="btn-cancel" id="cancel-edit-btn" style="display:none">
+                        <i class="fa-solid fa-xmark"></i> إلغاء التعديل
+                    </button>
+                </div>
+
+                <div id="form-msg" class="form-msg" style="display:none"></div>
+            </form>
+        </div>
+
+    </main>
+</div>
+
+<script>
+// ====================================================
+//  أدوات مساعدة — localStorage mode (بدون سيرفر)
+// ====================================================
+const $ = id => document.getElementById(id);
+const ADMIN_PASS   = 'Lamar@2026';   // ← غيّري كلمة السر هنا
+const STORAGE_KEY  = 'lamar_media_items';
+const SESSION_KEY  = 'lamar_admin_session';
+
+let allItems     = [];
+let activeFilter = 'all';
+let uploadedImages = [];  // [{data, previewUrl, isVideo}]
+const objURLCache  = {};  // idb://key → objectURL
+
+// ====================================================
+//  IndexedDB — لتخزين الفيديوهات الكبيرة
+// ====================================================
+const IDB = {
+    _db: null,
+    async open() {
+        if (this._db) return this._db;
+        return new Promise((res, rej) => {
+            const req = indexedDB.open('lamar_blobs', 1);
+            req.onupgradeneeded = e => e.target.result.createObjectStore('files');
+            req.onsuccess = e => { this._db = e.target.result; res(this._db); };
+            req.onerror   = () => rej(req.error);
+        });
+    },
+    async save(key, blob) {
+        const db = await this.open();
+        return new Promise((res, rej) => {
+            const tx = db.transaction('files', 'readwrite');
+            tx.objectStore('files').put(blob, key);
+            tx.oncomplete = res;
+            tx.onerror    = () => rej(tx.error);
+        });
+    },
+    async get(key) {
+        const db = await this.open();
+        return new Promise((res, rej) => {
+            const tx  = db.transaction('files', 'readonly');
+            const req = tx.objectStore('files').get(key);
+            req.onsuccess = () => res(req.result);
+            req.onerror   = () => rej(req.error);
+        });
+    },
+    async del(key) {
+        const db = await this.open();
+        return new Promise((res, rej) => {
+            const tx = db.transaction('files', 'readwrite');
+            tx.objectStore('files').delete(key);
+            tx.oncomplete = res;
+            tx.onerror    = () => rej(tx.error);
+        });
+    }
+};
+
+// ====================================================
+//  تسجيل الدخول — localStorage
+// ====================================================
+function checkLogin() {
+    if (sessionStorage.getItem(SESSION_KEY) === '1') showPanel();
+}
+
+$('toggle-pass').addEventListener('click', () => {
+    const inp = $('login-pass');
+    inp.type  = inp.type === 'password' ? 'text' : 'password';
+    $('toggle-pass').querySelector('i').className =
+        inp.type === 'password' ? 'fa-solid fa-eye' : 'fa-solid fa-eye-slash';
+});
+
+$('login-pass').addEventListener('keydown', e => {
+    if (e.key === 'Enter') $('login-btn').click();
+});
+
+$('login-btn').addEventListener('click', () => {
+    const pass = $('login-pass').value.trim();
+    if (!pass) return;
+    if (pass === ADMIN_PASS) {
+        sessionStorage.setItem(SESSION_KEY, '1');
+        showPanel();
+    } else {
+        showLoginError('كلمة السر غير صحيحة');
+    }
+});
+
+function showLoginError(msg) {
+    const el = $('login-error');
+    el.textContent = msg;
+    el.style.display = 'block';
+    setTimeout(() => el.style.display = 'none', 3000);
+}
+
+function showPanel() {
+    $('login-screen').style.display = 'none';
+    $('admin-panel').style.display  = 'flex';
+    loadItems();
+}
+
+$('logout-btn').addEventListener('click', () => {
+    sessionStorage.removeItem(SESSION_KEY);
+    location.reload();
+});
+
+// ====================================================
+//  التنقل بين الـ Views
+// ====================================================
+document.querySelectorAll('.nav-item[data-view]').forEach(link => {
+    link.addEventListener('click', e => {
+        e.preventDefault();
+        const view = link.dataset.view;
+        document.querySelectorAll('.nav-item').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        document.querySelectorAll('.admin-view').forEach(v => v.classList.remove('active'));
+        $('view-' + view).classList.add('active');
+        if (view === 'dashboard') loadItems();
+    });
+});
+
+// ====================================================
+//  جلب البيانات وعرضها — localStorage
+// ====================================================
+function loadItems() {
+    try {
+        const raw  = localStorage.getItem(STORAGE_KEY);
+        allItems   = raw ? JSON.parse(raw) : [];
+    } catch(e) {
+        allItems = [];
+    }
+    renderStats();
+    renderGrid(activeFilter);
+}
+
+function saveToStorage() {
+    // استبعد الـ base64 الكبيرة من localStorage (الفيديوهات مخزنة في IDB)
+    const slim = allItems.map(i => ({ ...i }));
+    try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(slim));
+    } catch(e) {
+        // إذا امتلأ localStorage احذف الـ base64 الكبيرة وأعد المحاولة
+        const mini = slim.map(i => ({
+            ...i,
+            image: i.image && i.image.startsWith('data:') && i.image.length > 200000
+                ? '' : i.image
+        }));
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(mini)); } catch(e2) {}
+    }
+}
+
+function renderStats() {
+    const news   = allItems.filter(i => i.type === 'news').length;
+    const events = allItems.filter(i => i.type === 'events').length;
+    const videos = allItems.filter(i => i.type === 'videos').length;
+    $('count-news').textContent   = news;
+    $('count-events').textContent = events;
+    $('count-videos').textContent = videos;
+    $('count-total').textContent  = allItems.length;
+}
+
+function renderGrid(filter) {
+    const grid  = $('items-grid');
+    const items = filter === 'all' ? allItems : allItems.filter(i => i.type === filter);
+    grid.innerHTML = '';
+
+    if (items.length === 0) {
+        grid.innerHTML = `<div class="empty-state"><i class="fa-solid fa-inbox"></i><p>لا يوجد محتوى في هذه الفئة</p></div>`;
+        return;
+    }
+
+    items.forEach(item => {
+        const card = document.createElement('div');
+        card.className = 'item-card';
+        card.dataset.type = item.type;
+        card.innerHTML = `
+            <div class="item-thumb ${item.type}-thumb">
+                ${getThumb(item)}
+                <span class="item-badge badge-${item.type}">${typeLabel(item.type)}</span>
+            </div>
+            <div class="item-body">
+                <p class="item-date"><i class="fa-regular fa-calendar"></i> ${item.date || '—'}</p>
+                <h4>${item.title || 'بدون عنوان'}</h4>
+                <p class="item-summary">${item.summary || ''}</p>
+            </div>
+            <div class="item-actions">
+                <button class="btn-edit" onclick="editItem('${item.id}')"><i class="fa-solid fa-pen"></i> تعديل</button>
+                <button class="btn-delete" onclick="deleteItem('${item.id}')"><i class="fa-solid fa-trash"></i> حذف</button>
+            </div>`;
+        grid.appendChild(card);
+    });
+}
+
+function getThumb(item) {
+    const icons = { news: 'fa-newspaper', events: 'fa-calendar-star', videos: 'fa-circle-play' };
+    if (!item.image) return `<i class="fa-solid ${icons[item.type] || 'fa-image'} thumb-icon"></i>`;
+
+    // مرجع IndexedDB — يُحمَّل بشكل غير متزامن
+    if (item.image.startsWith('idb://')) {
+        const key = item.image.slice(6);
+        const tmpId = 'thumb_' + item.id;
+        if (objURLCache[key]) {
+            return item.type === 'videos'
+                ? `<video src="${objURLCache[key]}" class="thumb-media"></video>`
+                : `<img src="${objURLCache[key]}" class="thumb-media" alt="">`;
+        }
+        // حمّل من IDB وحدّث العنصر عند الجاهزية
+        IDB.get(key).then(blob => {
+            if (!blob) return;
+            objURLCache[key] = URL.createObjectURL(blob);
+            const el = document.getElementById(tmpId);
+            if (el) el.outerHTML = item.type === 'videos'
+                ? `<video id="${tmpId}" src="${objURLCache[key]}" class="thumb-media"></video>`
+                : `<img id="${tmpId}" src="${objURLCache[key]}" class="thumb-media" alt="">`;
+        });
+        return `<i id="${tmpId}" class="fa-solid fa-spinner fa-spin thumb-icon"></i>`;
+    }
+
+    if (item.image.startsWith('data:video') || item.image.match(/\.(mp4|webm|ogg)$/i))
+        return `<video src="${item.image}" class="thumb-media"></video>`;
+    return `<img src="${item.image}" class="thumb-media" alt="">`;
+}
+
+function typeLabel(type) {
+    return { news: 'خبر', events: 'فعالية', videos: 'مقطع' }[type] || type;
+}
+
+// فلتر التبويبات
+document.querySelectorAll('.filter-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        activeFilter = btn.dataset.type;
+        renderGrid(activeFilter);
+    });
+});
+
+// ====================================================
+//  نموذج الإضافة / التعديل
+// ====================================================
+// إظهار حقل يوتيوب عند اختيار "مقطع"
+document.querySelectorAll('input[name="type"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+        $('youtube-group').style.display = radio.value === 'videos' ? 'block' : 'none';
+        document.querySelectorAll('.type-opt').forEach(opt => opt.classList.remove('selected'));
+        radio.closest('.type-opt').classList.add('selected');
+    });
+});
+document.querySelector('.type-opt[data-type="news"]').classList.add('selected');
+
+// ====================================================
+//  رفع متعدد للصور / فيديو
+// ====================================================
+const uploadZone = $('upload-zone');
+const fileInput  = $('file-input');
+
+uploadZone.addEventListener('click', () => fileInput.click());
+uploadZone.querySelector('.upload-browse').addEventListener('click', e => { e.stopPropagation(); fileInput.click(); });
+uploadZone.addEventListener('dragover',  e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
+uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+uploadZone.addEventListener('drop', e => {
+    e.preventDefault(); uploadZone.classList.remove('drag-over');
+    handleFiles([...e.dataTransfer.files]);
+});
+fileInput.addEventListener('change', () => handleFiles([...fileInput.files]));
+
+async function handleFiles(files) {
+    for (const file of files) {
+        await handleOneFile(file);
+    }
+    fileInput.value = '';
+}
+
+async function handleOneFile(file) {
+    const maxMB = file.type.startsWith('video/') ? 40 : 10;
+    if (file.size > maxMB * 1024 * 1024) {
+        alert(`${file.name}: الحد الأقصى ${maxMB}MB`);
+        return;
+    }
+    $('upload-progress').style.display = 'block';
+    $('progress-fill').style.width = '20%';
+    $('progress-text').textContent = 'جارٍ المعالجة...';
+
+    if (file.type.startsWith('video/')) {
+        try {
+            const key    = 'vid_' + Date.now();
+            $('progress-fill').style.width = '60%';
+            await IDB.save(key, file);
+            const objURL = URL.createObjectURL(file);
+            objURLCache[key] = objURL;
+            uploadedImages.push({ data: 'idb://' + key, previewUrl: objURL, isVideo: true });
+        } catch(e) { alert('فشل حفظ الفيديو: ' + e.message); }
+    } else {
+        await new Promise(resolve => {
+            const reader = new FileReader();
+            reader.onload = e => {
+                uploadedImages.push({ data: e.target.result, previewUrl: e.target.result, isVideo: false });
+                resolve();
+            };
+            reader.onerror = resolve;
+            reader.readAsDataURL(file);
+        });
+    }
+
+    $('progress-fill').style.width = '100%';
+    $('progress-text').textContent = 'تم!';
+    setTimeout(() => { $('upload-progress').style.display = 'none'; }, 400);
+    renderUploadedGrid();
+}
+
+function renderUploadedGrid() {
+    const grid = $('multi-preview-grid');
+    if (uploadedImages.length === 0) { grid.innerHTML = ''; return; }
+    grid.innerHTML = uploadedImages.map((img, idx) => `
+        <div class="preview-thumb">
+            ${img.isVideo
+                ? `<video src="${img.previewUrl}" class="preview-thumb-media"></video><i class="fa-solid fa-circle-play preview-play-icon"></i>`
+                : `<img src="${img.previewUrl}" class="preview-thumb-media" alt="">`}
+            <button type="button" class="preview-remove-btn" onclick="removeUploadedImage(${idx})">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>`).join('');
+}
+
+function removeUploadedImage(idx) {
+    const item = uploadedImages[idx];
+    if (item && item.data.startsWith('idb://')) IDB.del(item.data.slice(6)).catch(()=>{});
+    uploadedImages.splice(idx, 1);
+    renderUploadedGrid();
+}
+
+// حفظ النموذج
+$('media-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const title   = $('f-title').value.trim();
+    const summary = $('f-summary').value.trim();
+    const date    = $('f-date').value;
+
+    if (!title || !summary || !date) {
+        showFormMsg('يرجى ملء جميع الحقول الإلزامية', 'error');
+        return;
+    }
+
+    const type     = document.querySelector('input[name="type"]:checked').value;
+    const editId   = $('edit-id').value;
+    const videoUrl = $('f-video-url').value.trim();
+    const images   = uploadedImages.map(i => i.data);
+
+    const payload = {
+        type, title, summary,
+        date: formatDate(date),
+        image: images[0] || '',
+        images,
+        videoUrl
+    };
+    if (editId) payload.id = editId;
+
+    if (editId) {
+        const idx = allItems.findIndex(i => i.id === editId);
+        if (idx !== -1) allItems[idx] = { ...allItems[idx], ...payload };
+    } else {
+        payload.id = 'm_' + Date.now();
+        allItems.unshift(payload);
+    }
+    saveToStorage();
+    showFormMsg(editId ? 'تم التعديل بنجاح ✓' : 'تم النشر بنجاح ✓', 'success');
+    resetForm();
+    setTimeout(() => {
+        document.querySelector('.nav-item[data-view="dashboard"]').click();
+    }, 1000);
+});
+
+function formatDate(val) {
+    if (!val) return '';
+    const [y, m] = val.split('-');
+    const months = ['يناير','فبراير','مارس','أبريل','مايو','يونيو',
+                    'يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+    return (months[parseInt(m) - 1] || m) + ' ' + y;
+}
+
+function resetForm() {
+    $('media-form').reset();
+    $('edit-id').value = '';
+    uploadedImages = [];
+    renderUploadedGrid();
+    $('youtube-group').style.display = 'none';
+    $('cancel-edit-btn').style.display = 'none';
+    $('form-view-title').innerHTML = '<i class="fa-solid fa-plus-circle"></i> إضافة محتوى جديد';
+    $('save-btn-text').textContent = 'حفظ ونشر';
+    document.querySelectorAll('.type-opt').forEach(opt => opt.classList.remove('selected'));
+    document.querySelector('.type-opt[data-type="news"]').classList.add('selected');
+    fileInput.value = '';
+}
+
+$('cancel-edit-btn').addEventListener('click', () => {
+    resetForm();
+    document.querySelector('.nav-item[data-view="dashboard"]').click();
+});
+
+function showFormMsg(msg, type) {
+    const el = $('form-msg');
+    el.textContent = msg;
+    el.className   = 'form-msg ' + type;
+    el.style.display = 'block';
+    setTimeout(() => el.style.display = 'none', 3000);
+}
+
+// ====================================================
+//  تعديل / حذف
+// ====================================================
+function editItem(id) {
+    const item = allItems.find(i => i.id === id);
+    if (!item) return;
+
+    // الانتقال لعرض الإضافة
+    document.querySelector('.nav-item[data-view="add"]').click();
+
+    $('edit-id').value     = item.id;
+    $('f-title').value     = item.title;
+    $('f-summary').value   = item.summary;
+    $('f-video-url').value = item.videoUrl || '';
+
+    // تحويل التاريخ
+    if (item.date) {
+        const months = { يناير:'01', فبراير:'02', مارس:'03', أبريل:'04',
+            مايو:'05', يونيو:'06', يوليو:'07', أغسطس:'08',
+            سبتمبر:'09', أكتوبر:'10', نوفمبر:'11', ديسمبر:'12' };
+        const parts = item.date.split(' ');
+        if (parts.length === 2) { const m = months[parts[0]]; if (m) $('f-date').value = parts[1] + '-' + m; }
+    }
+
+    // النوع
+    const radio = document.querySelector(`input[name="type"][value="${item.type}"]`);
+    if (radio) { radio.checked = true; radio.dispatchEvent(new Event('change')); }
+
+    // تحميل الصور المحفوظة
+    const imgs = item.images && item.images.length ? item.images : (item.image ? [item.image] : []);
+    uploadedImages = [];
+    const loadPromises = imgs.map(async src => {
+        const isVideo = src.startsWith('idb://') || src.startsWith('data:video') || /\.(mp4|webm|ogg)$/i.test(src);
+        let previewUrl = src;
+        if (src.startsWith('idb://')) {
+            const key = src.slice(6);
+            if (objURLCache[key]) { previewUrl = objURLCache[key]; }
+            else {
+                const blob = await IDB.get(key).catch(() => null);
+                if (blob) { previewUrl = URL.createObjectURL(blob); objURLCache[key] = previewUrl; }
+            }
+        }
+        uploadedImages.push({ data: src, previewUrl, isVideo });
+    });
+    Promise.all(loadPromises).then(renderUploadedGrid);
+
+    $('cancel-edit-btn').style.display = 'inline-flex';
+    $('form-view-title').innerHTML = '<i class="fa-solid fa-pen"></i> تعديل المحتوى';
+    $('save-btn-text').textContent = 'حفظ التعديلات';
+}
+
+function deleteItem(id) {
+    if (!confirm('هل تريدين حذف هذه البطاقة؟')) return;
+    const item = allItems.find(i => i.id === id);
+    if (item && item.image && item.image.startsWith('idb://')) {
+        IDB.del(item.image.slice(6)).catch(() => {});
+    }
+    allItems = allItems.filter(i => i.id !== id);
+    saveToStorage();
+    renderStats();
+    renderGrid(activeFilter);
+}
+
+// ====================================================
+//  تشغيل عند فتح الصفحة
+// ====================================================
+checkLogin();
+</script>
+</body>
+</html>
