@@ -1,198 +1,198 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة الإدارة — أعمال لمار</title>
+    <title>ظ„ظˆط­ط© ط§ظ„ط¥ط¯ط§ط±ط© â€” ط£ط¹ظ…ط§ظ„ ظ„ظ…ط§ط±</title>
     <link rel="stylesheet" href="admin-style.css">
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"></noscript>
 </head>
 <body>
 
-<!-- ======= شاشة تسجيل الدخول ======= -->
+<!-- ======= ط´ط§ط´ط© طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„ ======= -->
 <div id="login-screen" class="login-screen">
     <div class="login-card">
         <div class="login-logo">
             <img src="img/logo-white.png" alt="Lamar Pro">
         </div>
-        <h2>لوحة إدارة المحتوى</h2>
-        <p class="login-sub">أدخل كلمة السر للوصول</p>
+        <h2>ظ„ظˆط­ط© ط¥ط¯ط§ط±ط© ط§ظ„ظ…ط­طھظˆظ‰</h2>
+        <p class="login-sub">ط£ط¯ط®ظ„ ظƒظ„ظ…ط© ط§ظ„ط³ط± ظ„ظ„ظˆطµظˆظ„</p>
         <div class="login-form">
             <div class="input-wrap">
                 <i class="fa-solid fa-lock"></i>
-                <label for="login-pass" class="sr-only">كلمة السر</label>
-                <input type="password" id="login-pass" placeholder="كلمة السر" autocomplete="current-password" aria-label="كلمة السر">
-                <button type="button" id="toggle-pass" aria-label="إظهار أو إخفاء كلمة السر"><i class="fa-solid fa-eye" aria-hidden="true"></i></button>
+                <label for="login-pass" class="sr-only">ظƒظ„ظ…ط© ط§ظ„ط³ط±</label>
+                <input type="password" id="login-pass" placeholder="ظƒظ„ظ…ط© ط§ظ„ط³ط±" autocomplete="current-password" aria-label="ظƒظ„ظ…ط© ط§ظ„ط³ط±">
+                <button type="button" id="toggle-pass" aria-label="ط¥ط¸ظ‡ط§ط± ط£ظˆ ط¥ط®ظپط§ط، ظƒظ„ظ…ط© ط§ظ„ط³ط±"><i class="fa-solid fa-eye" aria-hidden="true"></i></button>
             </div>
             <div id="login-error" class="login-error" style="display:none"></div>
             <button id="login-btn" class="login-submit-btn">
-                <span>دخول</span> <i class="fa-solid fa-arrow-left"></i>
+                <span>ط¯ط®ظˆظ„</span> <i class="fa-solid fa-arrow-left"></i>
             </button>
         </div>
     </div>
 </div>
 
-<!-- ======= لوحة الإدارة ======= -->
+<!-- ======= ظ„ظˆط­ط© ط§ظ„ط¥ط¯ط§ط±ط© ======= -->
 <div id="admin-panel" class="admin-panel" style="display:none">
 
-    <!-- الشريط الجانبي -->
+    <!-- ط§ظ„ط´ط±ظٹط· ط§ظ„ط¬ط§ظ†ط¨ظٹ -->
     <aside class="admin-sidebar">
         <div class="sidebar-logo">
             <img src="img/logo-white.png" alt="Lamar">
-            <span>لوحة الإدارة</span>
+            <span>ظ„ظˆط­ط© ط§ظ„ط¥ط¯ط§ط±ط©</span>
         </div>
         <nav class="sidebar-nav">
             <a href="#" class="nav-item active" data-view="dashboard">
-                <i class="fa-solid fa-gauge"></i> لوحة التحكم
+                <i class="fa-solid fa-gauge"></i> ظ„ظˆط­ط© ط§ظ„طھط­ظƒظ…
             </a>
             <a href="#" class="nav-item" data-view="add">
-                <i class="fa-solid fa-plus-circle"></i> إضافة محتوى
+                <i class="fa-solid fa-plus-circle"></i> ط¥ط¶ط§ظپط© ظ…ط­طھظˆظ‰
             </a>
-            <a href="lamar.html" target="_blank" class="nav-item">
-                <i class="fa-solid fa-globe"></i> معاينة الموقع
+            <a href="index.html" target="_blank" class="nav-item">
+                <i class="fa-solid fa-globe"></i> ظ…ط¹ط§ظٹظ†ط© ط§ظ„ظ…ظˆظ‚ط¹
             </a>
         </nav>
         <button id="logout-btn" class="logout-btn">
-            <i class="fa-solid fa-right-from-bracket"></i> تسجيل الخروج
+            <i class="fa-solid fa-right-from-bracket"></i> طھط³ط¬ظٹظ„ ط§ظ„ط®ط±ظˆط¬
         </button>
     </aside>
 
-    <!-- المنطقة الرئيسية -->
+    <!-- ط§ظ„ظ…ظ†ط·ظ‚ط© ط§ظ„ط±ط¦ظٹط³ظٹط© -->
     <main class="admin-main">
 
-        <!-- ===== عرض: لوحة التحكم ===== -->
+        <!-- ===== ط¹ط±ط¶: ظ„ظˆط­ط© ط§ظ„طھط­ظƒظ… ===== -->
         <div id="view-dashboard" class="admin-view active">
             <div class="view-header">
-                <h1><i class="fa-solid fa-gauge"></i> لوحة التحكم</h1>
+                <h1><i class="fa-solid fa-gauge"></i> ظ„ظˆط­ط© ط§ظ„طھط­ظƒظ…</h1>
             </div>
 
-            <!-- الإحصائيات -->
+            <!-- ط§ظ„ط¥ط­طµط§ط¦ظٹط§طھ -->
             <div class="stats-row" id="stats-row">
                 <div class="stat-card">
                     <i class="fa-solid fa-newspaper stat-icon news-icon"></i>
                     <div>
                         <h3 id="count-news">0</h3>
-                        <p>أخبار</p>
+                        <p>ط£ط®ط¨ط§ط±</p>
                     </div>
                 </div>
                 <div class="stat-card">
                     <i class="fa-solid fa-calendar-star stat-icon events-icon"></i>
                     <div>
                         <h3 id="count-events">0</h3>
-                        <p>فعاليات</p>
+                        <p>ظپط¹ط§ظ„ظٹط§طھ</p>
                     </div>
                 </div>
                 <div class="stat-card">
                     <i class="fa-solid fa-circle-play stat-icon videos-icon"></i>
                     <div>
                         <h3 id="count-videos">0</h3>
-                        <p>مقاطع</p>
+                        <p>ظ…ظ‚ط§ط·ط¹</p>
                     </div>
                 </div>
                 <div class="stat-card">
                     <i class="fa-solid fa-layer-group stat-icon total-icon"></i>
                     <div>
                         <h3 id="count-total">0</h3>
-                        <p>إجمالي</p>
+                        <p>ط¥ط¬ظ…ط§ظ„ظٹ</p>
                     </div>
                 </div>
             </div>
 
-            <!-- فلتر + شبكة البطاقات -->
+            <!-- ظپظ„طھط± + ط´ط¨ظƒط© ط§ظ„ط¨ط·ط§ظ‚ط§طھ -->
             <div class="view-header" style="margin-top:28px">
-                <h2>المحتوى المنشور</h2>
+                <h2>ط§ظ„ظ…ط­طھظˆظ‰ ط§ظ„ظ…ظ†ط´ظˆط±</h2>
                 <div class="filter-tabs">
-                    <button class="filter-tab active" data-type="all">الكل</button>
-                    <button class="filter-tab" data-type="news">أخبار</button>
-                    <button class="filter-tab" data-type="events">فعاليات</button>
-                    <button class="filter-tab" data-type="videos">مقاطع</button>
+                    <button class="filter-tab active" data-type="all">ط§ظ„ظƒظ„</button>
+                    <button class="filter-tab" data-type="news">ط£ط®ط¨ط§ط±</button>
+                    <button class="filter-tab" data-type="events">ظپط¹ط§ظ„ظٹط§طھ</button>
+                    <button class="filter-tab" data-type="videos">ظ…ظ‚ط§ط·ط¹</button>
                 </div>
             </div>
 
             <div class="items-grid" id="items-grid">
                 <div class="empty-state" id="empty-state">
                     <i class="fa-solid fa-inbox"></i>
-                    <p>لا يوجد محتوى بعد — أضف أول بطاقة من قسم "إضافة محتوى"</p>
+                    <p>ظ„ط§ ظٹظˆط¬ط¯ ظ…ط­طھظˆظ‰ ط¨ط¹ط¯ â€” ط£ط¶ظپ ط£ظˆظ„ ط¨ط·ط§ظ‚ط© ظ…ظ† ظ‚ط³ظ… "ط¥ط¶ط§ظپط© ظ…ط­طھظˆظ‰"</p>
                 </div>
             </div>
         </div>
 
-        <!-- ===== عرض: إضافة / تعديل ===== -->
+        <!-- ===== ط¹ط±ط¶: ط¥ط¶ط§ظپط© / طھط¹ط¯ظٹظ„ ===== -->
         <div id="view-add" class="admin-view">
             <div class="view-header">
-                <h1 id="form-view-title"><i class="fa-solid fa-plus-circle"></i> إضافة محتوى جديد</h1>
+                <h1 id="form-view-title"><i class="fa-solid fa-plus-circle"></i> ط¥ط¶ط§ظپط© ظ…ط­طھظˆظ‰ ط¬ط¯ظٹط¯</h1>
             </div>
 
             <form id="media-form" class="media-form" novalidate>
                 <input type="hidden" id="edit-id">
 
-                <!-- نوع المحتوى -->
+                <!-- ظ†ظˆط¹ ط§ظ„ظ…ط­طھظˆظ‰ -->
                 <div class="form-section">
-                    <label class="section-label">نوع المحتوى</label>
+                    <label class="section-label">ظ†ظˆط¹ ط§ظ„ظ…ط­طھظˆظ‰</label>
                     <div class="type-selector">
                         <label class="type-opt" data-type="news">
                             <input type="radio" name="type" value="news" checked>
-                            <span><i class="fa-solid fa-newspaper"></i> خبر</span>
+                            <span><i class="fa-solid fa-newspaper"></i> ط®ط¨ط±</span>
                         </label>
                         <label class="type-opt" data-type="events">
                             <input type="radio" name="type" value="events">
-                            <span><i class="fa-solid fa-calendar-star"></i> فعالية</span>
+                            <span><i class="fa-solid fa-calendar-star"></i> ظپط¹ط§ظ„ظٹط©</span>
                         </label>
                         <label class="type-opt" data-type="videos">
                             <input type="radio" name="type" value="videos">
-                            <span><i class="fa-solid fa-circle-play"></i> مقطع</span>
+                            <span><i class="fa-solid fa-circle-play"></i> ظ…ظ‚ط·ط¹</span>
                         </label>
                     </div>
                 </div>
 
-                <!-- العنوان -->
+                <!-- ط§ظ„ط¹ظ†ظˆط§ظ† -->
                 <div class="form-group">
-                    <label for="f-title">العنوان <span class="req">*</span></label>
-                    <input type="text" id="f-title" placeholder="أدخل عنوان الخبر أو الفعالية...">
+                    <label for="f-title">ط§ظ„ط¹ظ†ظˆط§ظ† <span class="req">*</span></label>
+                    <input type="text" id="f-title" placeholder="ط£ط¯ط®ظ„ ط¹ظ†ظˆط§ظ† ط§ظ„ط®ط¨ط± ط£ظˆ ط§ظ„ظپط¹ط§ظ„ظٹط©...">
                 </div>
 
-                <!-- الملخص -->
+                <!-- ط§ظ„ظ…ظ„ط®طµ -->
                 <div class="form-group">
-                    <label for="f-summary">الملخص <span class="req">*</span></label>
-                    <textarea id="f-summary" rows="3" placeholder="أضف وصفاً قصيراً..."></textarea>
+                    <label for="f-summary">ط§ظ„ظ…ظ„ط®طµ <span class="req">*</span></label>
+                    <textarea id="f-summary" rows="3" placeholder="ط£ط¶ظپ ظˆطµظپط§ظ‹ ظ‚طµظٹط±ط§ظ‹..."></textarea>
                 </div>
 
-                <!-- التاريخ -->
+                <!-- ط§ظ„طھط§ط±ظٹط® -->
                 <div class="form-group">
-                    <label for="f-date">التاريخ <span class="req">*</span></label>
+                    <label for="f-date">ط§ظ„طھط§ط±ظٹط® <span class="req">*</span></label>
                     <input type="month" id="f-date">
                 </div>
 
-                <!-- رفع الصور / الفيديو — متعدد -->
+                <!-- ط±ظپط¹ ط§ظ„طµظˆط± / ط§ظ„ظپظٹط¯ظٹظˆ â€” ظ…طھط¹ط¯ط¯ -->
                 <div class="form-section">
-                    <label class="section-label">الصور أو الفيديو <small style="font-weight:400;text-transform:none;letter-spacing:0;color:#aab3c0">(يمكن إضافة أكثر من صورة)</small></label>
+                    <label class="section-label">ط§ظ„طµظˆط± ط£ظˆ ط§ظ„ظپظٹط¯ظٹظˆ <small style="font-weight:400;text-transform:none;letter-spacing:0;color:#aab3c0">(ظٹظ…ظƒظ† ط¥ط¶ط§ظپط© ط£ظƒط«ط± ظ…ظ† طµظˆط±ط©)</small></label>
                     <div class="upload-zone" id="upload-zone">
                         <i class="fa-solid fa-images"></i>
-                        <p>اسحب وأفلت الصور هنا، أو <span class="upload-browse">تصفح</span></p>
-                        <small>صور: JPG، PNG، WebP — فيديو: MP4 · الحد 40MB</small>
+                        <p>ط§ط³ط­ط¨ ظˆط£ظپظ„طھ ط§ظ„طµظˆط± ظ‡ظ†ط§طŒ ط£ظˆ <span class="upload-browse">طھطµظپط­</span></p>
+                        <small>طµظˆط±: JPGطŒ PNGطŒ WebP â€” ظپظٹط¯ظٹظˆ: MP4 آ· ط§ظ„ط­ط¯ 40MB</small>
                         <input type="file" id="file-input" accept="image/*,video/mp4,video/webm" multiple style="display:none">
                     </div>
                     <div class="multi-preview-grid" id="multi-preview-grid"></div>
                     <div class="upload-progress" id="upload-progress" style="display:none">
                         <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
-                        <span id="progress-text">جارٍ الرفع...</span>
+                        <span id="progress-text">ط¬ط§ط±ظچ ط§ظ„ط±ظپط¹...</span>
                     </div>
                 </div>
 
-                <!-- رابط يوتيوب (مقاطع فقط) -->
+                <!-- ط±ط§ط¨ط· ظٹظˆطھظٹظˆط¨ (ظ…ظ‚ط§ط·ط¹ ظپظ‚ط·) -->
                 <div class="form-group" id="youtube-group" style="display:none">
-                    <label for="f-video-url">رابط يوتيوب (اختياري بدلاً من الرفع)</label>
+                    <label for="f-video-url">ط±ط§ط¨ط· ظٹظˆطھظٹظˆط¨ (ط§ط®طھظٹط§ط±ظٹ ط¨ط¯ظ„ط§ظ‹ ظ…ظ† ط§ظ„ط±ظپط¹)</label>
                     <input type="url" id="f-video-url" placeholder="https://youtube.com/watch?v=...">
                 </div>
 
-                <!-- أزرار -->
+                <!-- ط£ط²ط±ط§ط± -->
                 <div class="form-actions">
                     <button type="submit" class="btn-save" id="save-btn">
-                        <i class="fa-solid fa-floppy-disk"></i> <span id="save-btn-text">حفظ ونشر</span>
+                        <i class="fa-solid fa-floppy-disk"></i> <span id="save-btn-text">ط­ظپط¸ ظˆظ†ط´ط±</span>
                     </button>
                     <button type="button" class="btn-cancel" id="cancel-edit-btn" style="display:none">
-                        <i class="fa-solid fa-xmark"></i> إلغاء التعديل
+                        <i class="fa-solid fa-xmark"></i> ط¥ظ„ط؛ط§ط، ط§ظ„طھط¹ط¯ظٹظ„
                     </button>
                 </div>
 
@@ -205,20 +205,20 @@
 
 <script>
 // ====================================================
-//  أدوات مساعدة — localStorage mode (بدون سيرفر)
+//  ط£ط¯ظˆط§طھ ظ…ط³ط§ط¹ط¯ط© â€” localStorage mode (ط¨ط¯ظˆظ† ط³ظٹط±ظپط±)
 // ====================================================
 const $ = id => document.getElementById(id);
-const ADMIN_PASS   = 'Lamar@2026';   // ← غيّري كلمة السر هنا
+const ADMIN_PASS   = 'Lamar@2026';   // â†گ ط؛ظٹظ‘ط±ظٹ ظƒظ„ظ…ط© ط§ظ„ط³ط± ظ‡ظ†ط§
 const STORAGE_KEY  = 'lamar_media_items';
 const SESSION_KEY  = 'lamar_admin_session';
 
 let allItems     = [];
 let activeFilter = 'all';
 let uploadedImages = [];  // [{data, previewUrl, isVideo}]
-const objURLCache  = {};  // idb://key → objectURL
+const objURLCache  = {};  // idb://key â†’ objectURL
 
 // ====================================================
-//  IndexedDB — لتخزين الفيديوهات الكبيرة
+//  IndexedDB â€” ظ„طھط®ط²ظٹظ† ط§ظ„ظپظٹط¯ظٹظˆظ‡ط§طھ ط§ظ„ظƒط¨ظٹط±ط©
 // ====================================================
 const IDB = {
     _db: null,
@@ -261,7 +261,7 @@ const IDB = {
 };
 
 // ====================================================
-//  تسجيل الدخول — localStorage
+//  طھط³ط¬ظٹظ„ ط§ظ„ط¯ط®ظˆظ„ â€” localStorage
 // ====================================================
 function checkLogin() {
     if (sessionStorage.getItem(SESSION_KEY) === '1') showPanel();
@@ -285,7 +285,7 @@ $('login-btn').addEventListener('click', () => {
         sessionStorage.setItem(SESSION_KEY, '1');
         showPanel();
     } else {
-        showLoginError('كلمة السر غير صحيحة');
+        showLoginError('ظƒظ„ظ…ط© ط§ظ„ط³ط± ط؛ظٹط± طµط­ظٹط­ط©');
     }
 });
 
@@ -308,7 +308,7 @@ $('logout-btn').addEventListener('click', () => {
 });
 
 // ====================================================
-//  التنقل بين الـ Views
+//  ط§ظ„طھظ†ظ‚ظ„ ط¨ظٹظ† ط§ظ„ظ€ Views
 // ====================================================
 document.querySelectorAll('.nav-item[data-view]').forEach(link => {
     link.addEventListener('click', e => {
@@ -323,7 +323,7 @@ document.querySelectorAll('.nav-item[data-view]').forEach(link => {
 });
 
 // ====================================================
-//  جلب البيانات وعرضها — localStorage
+//  ط¬ظ„ط¨ ط§ظ„ط¨ظٹط§ظ†ط§طھ ظˆط¹ط±ط¶ظ‡ط§ â€” localStorage
 // ====================================================
 function loadItems() {
     try {
@@ -337,12 +337,12 @@ function loadItems() {
 }
 
 function saveToStorage() {
-    // استبعد الـ base64 الكبيرة من localStorage (الفيديوهات مخزنة في IDB)
+    // ط§ط³طھط¨ط¹ط¯ ط§ظ„ظ€ base64 ط§ظ„ظƒط¨ظٹط±ط© ظ…ظ† localStorage (ط§ظ„ظپظٹط¯ظٹظˆظ‡ط§طھ ظ…ط®ط²ظ†ط© ظپظٹ IDB)
     const slim = allItems.map(i => ({ ...i }));
     try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(slim));
     } catch(e) {
-        // إذا امتلأ localStorage احذف الـ base64 الكبيرة وأعد المحاولة
+        // ط¥ط°ط§ ط§ظ…طھظ„ط£ localStorage ط§ط­ط°ظپ ط§ظ„ظ€ base64 ط§ظ„ظƒط¨ظٹط±ط© ظˆط£ط¹ط¯ ط§ظ„ظ…ط­ط§ظˆظ„ط©
         const mini = slim.map(i => ({
             ...i,
             image: i.image && i.image.startsWith('data:') && i.image.length > 200000
@@ -368,7 +368,7 @@ function renderGrid(filter) {
     grid.innerHTML = '';
 
     if (items.length === 0) {
-        grid.innerHTML = `<div class="empty-state"><i class="fa-solid fa-inbox"></i><p>لا يوجد محتوى في هذه الفئة</p></div>`;
+        grid.innerHTML = `<div class="empty-state"><i class="fa-solid fa-inbox"></i><p>ظ„ط§ ظٹظˆط¬ط¯ ظ…ط­طھظˆظ‰ ظپظٹ ظ‡ط°ظ‡ ط§ظ„ظپط¦ط©</p></div>`;
         return;
     }
 
@@ -382,13 +382,13 @@ function renderGrid(filter) {
                 <span class="item-badge badge-${item.type}">${typeLabel(item.type)}</span>
             </div>
             <div class="item-body">
-                <p class="item-date"><i class="fa-regular fa-calendar"></i> ${item.date || '—'}</p>
-                <h4>${item.title || 'بدون عنوان'}</h4>
+                <p class="item-date"><i class="fa-regular fa-calendar"></i> ${item.date || 'â€”'}</p>
+                <h4>${item.title || 'ط¨ط¯ظˆظ† ط¹ظ†ظˆط§ظ†'}</h4>
                 <p class="item-summary">${item.summary || ''}</p>
             </div>
             <div class="item-actions">
-                <button class="btn-edit" onclick="editItem('${item.id}')"><i class="fa-solid fa-pen"></i> تعديل</button>
-                <button class="btn-delete" onclick="deleteItem('${item.id}')"><i class="fa-solid fa-trash"></i> حذف</button>
+                <button class="btn-edit" onclick="editItem('${item.id}')"><i class="fa-solid fa-pen"></i> طھط¹ط¯ظٹظ„</button>
+                <button class="btn-delete" onclick="deleteItem('${item.id}')"><i class="fa-solid fa-trash"></i> ط­ط°ظپ</button>
             </div>`;
         grid.appendChild(card);
     });
@@ -398,7 +398,7 @@ function getThumb(item) {
     const icons = { news: 'fa-newspaper', events: 'fa-calendar-star', videos: 'fa-circle-play' };
     if (!item.image) return `<i class="fa-solid ${icons[item.type] || 'fa-image'} thumb-icon"></i>`;
 
-    // مرجع IndexedDB — يُحمَّل بشكل غير متزامن
+    // ظ…ط±ط¬ط¹ IndexedDB â€” ظٹظڈط­ظ…ظژظ‘ظ„ ط¨ط´ظƒظ„ ط؛ظٹط± ظ…طھط²ط§ظ…ظ†
     if (item.image.startsWith('idb://')) {
         const key = item.image.slice(6);
         const tmpId = 'thumb_' + item.id;
@@ -407,7 +407,7 @@ function getThumb(item) {
                 ? `<video src="${objURLCache[key]}" class="thumb-media"></video>`
                 : `<img src="${objURLCache[key]}" class="thumb-media" alt="">`;
         }
-        // حمّل من IDB وحدّث العنصر عند الجاهزية
+        // ط­ظ…ظ‘ظ„ ظ…ظ† IDB ظˆط­ط¯ظ‘ط« ط§ظ„ط¹ظ†طµط± ط¹ظ†ط¯ ط§ظ„ط¬ط§ظ‡ط²ظٹط©
         IDB.get(key).then(blob => {
             if (!blob) return;
             objURLCache[key] = URL.createObjectURL(blob);
@@ -425,10 +425,10 @@ function getThumb(item) {
 }
 
 function typeLabel(type) {
-    return { news: 'خبر', events: 'فعالية', videos: 'مقطع' }[type] || type;
+    return { news: 'ط®ط¨ط±', events: 'ظپط¹ط§ظ„ظٹط©', videos: 'ظ…ظ‚ط·ط¹' }[type] || type;
 }
 
-// فلتر التبويبات
+// ظپظ„طھط± ط§ظ„طھط¨ظˆظٹط¨ط§طھ
 document.querySelectorAll('.filter-tab').forEach(btn => {
     btn.addEventListener('click', () => {
         document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
@@ -439,9 +439,9 @@ document.querySelectorAll('.filter-tab').forEach(btn => {
 });
 
 // ====================================================
-//  نموذج الإضافة / التعديل
+//  ظ†ظ…ظˆط°ط¬ ط§ظ„ط¥ط¶ط§ظپط© / ط§ظ„طھط¹ط¯ظٹظ„
 // ====================================================
-// إظهار حقل يوتيوب عند اختيار "مقطع"
+// ط¥ط¸ظ‡ط§ط± ط­ظ‚ظ„ ظٹظˆطھظٹظˆط¨ ط¹ظ†ط¯ ط§ط®طھظٹط§ط± "ظ…ظ‚ط·ط¹"
 document.querySelectorAll('input[name="type"]').forEach(radio => {
     radio.addEventListener('change', () => {
         $('youtube-group').style.display = radio.value === 'videos' ? 'block' : 'none';
@@ -452,7 +452,7 @@ document.querySelectorAll('input[name="type"]').forEach(radio => {
 document.querySelector('.type-opt[data-type="news"]').classList.add('selected');
 
 // ====================================================
-//  رفع متعدد للصور / فيديو
+//  ط±ظپط¹ ظ…طھط¹ط¯ط¯ ظ„ظ„طµظˆط± / ظپظٹط¯ظٹظˆ
 // ====================================================
 const uploadZone = $('upload-zone');
 const fileInput  = $('file-input');
@@ -477,12 +477,12 @@ async function handleFiles(files) {
 async function handleOneFile(file) {
     const maxMB = file.type.startsWith('video/') ? 40 : 10;
     if (file.size > maxMB * 1024 * 1024) {
-        alert(`${file.name}: الحد الأقصى ${maxMB}MB`);
+        alert(`${file.name}: ط§ظ„ط­ط¯ ط§ظ„ط£ظ‚طµظ‰ ${maxMB}MB`);
         return;
     }
     $('upload-progress').style.display = 'block';
     $('progress-fill').style.width = '20%';
-    $('progress-text').textContent = 'جارٍ المعالجة...';
+    $('progress-text').textContent = 'ط¬ط§ط±ظچ ط§ظ„ظ…ط¹ط§ظ„ط¬ط©...';
 
     if (file.type.startsWith('video/')) {
         try {
@@ -492,7 +492,7 @@ async function handleOneFile(file) {
             const objURL = URL.createObjectURL(file);
             objURLCache[key] = objURL;
             uploadedImages.push({ data: 'idb://' + key, previewUrl: objURL, isVideo: true });
-        } catch(e) { alert('فشل حفظ الفيديو: ' + e.message); }
+        } catch(e) { alert('ظپط´ظ„ ط­ظپط¸ ط§ظ„ظپظٹط¯ظٹظˆ: ' + e.message); }
     } else {
         await new Promise(resolve => {
             const reader = new FileReader();
@@ -506,7 +506,7 @@ async function handleOneFile(file) {
     }
 
     $('progress-fill').style.width = '100%';
-    $('progress-text').textContent = 'تم!';
+    $('progress-text').textContent = 'طھظ…!';
     setTimeout(() => { $('upload-progress').style.display = 'none'; }, 400);
     renderUploadedGrid();
 }
@@ -532,7 +532,7 @@ function removeUploadedImage(idx) {
     renderUploadedGrid();
 }
 
-// حفظ النموذج
+// ط­ظپط¸ ط§ظ„ظ†ظ…ظˆط°ط¬
 $('media-form').addEventListener('submit', async e => {
     e.preventDefault();
     const title   = $('f-title').value.trim();
@@ -540,7 +540,7 @@ $('media-form').addEventListener('submit', async e => {
     const date    = $('f-date').value;
 
     if (!title || !summary || !date) {
-        showFormMsg('يرجى ملء جميع الحقول الإلزامية', 'error');
+        showFormMsg('ظٹط±ط¬ظ‰ ظ…ظ„ط، ط¬ظ…ظٹط¹ ط§ظ„ط­ظ‚ظˆظ„ ط§ظ„ط¥ظ„ط²ط§ظ…ظٹط©', 'error');
         return;
     }
 
@@ -566,7 +566,7 @@ $('media-form').addEventListener('submit', async e => {
         allItems.unshift(payload);
     }
     saveToStorage();
-    showFormMsg(editId ? 'تم التعديل بنجاح ✓' : 'تم النشر بنجاح ✓', 'success');
+    showFormMsg(editId ? 'طھظ… ط§ظ„طھط¹ط¯ظٹظ„ ط¨ظ†ط¬ط§ط­ âœ“' : 'طھظ… ط§ظ„ظ†ط´ط± ط¨ظ†ط¬ط§ط­ âœ“', 'success');
     resetForm();
     setTimeout(() => {
         document.querySelector('.nav-item[data-view="dashboard"]').click();
@@ -576,8 +576,8 @@ $('media-form').addEventListener('submit', async e => {
 function formatDate(val) {
     if (!val) return '';
     const [y, m] = val.split('-');
-    const months = ['يناير','فبراير','مارس','أبريل','مايو','يونيو',
-                    'يوليو','أغسطس','سبتمبر','أكتوبر','نوفمبر','ديسمبر'];
+    const months = ['ظٹظ†ط§ظٹط±','ظپط¨ط±ط§ظٹط±','ظ…ط§ط±ط³','ط£ط¨ط±ظٹظ„','ظ…ط§ظٹظˆ','ظٹظˆظ†ظٹظˆ',
+                    'ظٹظˆظ„ظٹظˆ','ط£ط؛ط³ط·ط³','ط³ط¨طھظ…ط¨ط±','ط£ظƒطھظˆط¨ط±','ظ†ظˆظپظ…ط¨ط±','ط¯ظٹط³ظ…ط¨ط±'];
     return (months[parseInt(m) - 1] || m) + ' ' + y;
 }
 
@@ -588,8 +588,8 @@ function resetForm() {
     renderUploadedGrid();
     $('youtube-group').style.display = 'none';
     $('cancel-edit-btn').style.display = 'none';
-    $('form-view-title').innerHTML = '<i class="fa-solid fa-plus-circle"></i> إضافة محتوى جديد';
-    $('save-btn-text').textContent = 'حفظ ونشر';
+    $('form-view-title').innerHTML = '<i class="fa-solid fa-plus-circle"></i> ط¥ط¶ط§ظپط© ظ…ط­طھظˆظ‰ ط¬ط¯ظٹط¯';
+    $('save-btn-text').textContent = 'ط­ظپط¸ ظˆظ†ط´ط±';
     document.querySelectorAll('.type-opt').forEach(opt => opt.classList.remove('selected'));
     document.querySelector('.type-opt[data-type="news"]').classList.add('selected');
     fileInput.value = '';
@@ -609,13 +609,13 @@ function showFormMsg(msg, type) {
 }
 
 // ====================================================
-//  تعديل / حذف
+//  طھط¹ط¯ظٹظ„ / ط­ط°ظپ
 // ====================================================
 function editItem(id) {
     const item = allItems.find(i => i.id === id);
     if (!item) return;
 
-    // الانتقال لعرض الإضافة
+    // ط§ظ„ط§ظ†طھظ‚ط§ظ„ ظ„ط¹ط±ط¶ ط§ظ„ط¥ط¶ط§ظپط©
     document.querySelector('.nav-item[data-view="add"]').click();
 
     $('edit-id').value     = item.id;
@@ -623,20 +623,20 @@ function editItem(id) {
     $('f-summary').value   = item.summary;
     $('f-video-url').value = item.videoUrl || '';
 
-    // تحويل التاريخ
+    // طھط­ظˆظٹظ„ ط§ظ„طھط§ط±ظٹط®
     if (item.date) {
-        const months = { يناير:'01', فبراير:'02', مارس:'03', أبريل:'04',
-            مايو:'05', يونيو:'06', يوليو:'07', أغسطس:'08',
-            سبتمبر:'09', أكتوبر:'10', نوفمبر:'11', ديسمبر:'12' };
+        const months = { ظٹظ†ط§ظٹط±:'01', ظپط¨ط±ط§ظٹط±:'02', ظ…ط§ط±ط³:'03', ط£ط¨ط±ظٹظ„:'04',
+            ظ…ط§ظٹظˆ:'05', ظٹظˆظ†ظٹظˆ:'06', ظٹظˆظ„ظٹظˆ:'07', ط£ط؛ط³ط·ط³:'08',
+            ط³ط¨طھظ…ط¨ط±:'09', ط£ظƒطھظˆط¨ط±:'10', ظ†ظˆظپظ…ط¨ط±:'11', ط¯ظٹط³ظ…ط¨ط±:'12' };
         const parts = item.date.split(' ');
         if (parts.length === 2) { const m = months[parts[0]]; if (m) $('f-date').value = parts[1] + '-' + m; }
     }
 
-    // النوع
+    // ط§ظ„ظ†ظˆط¹
     const radio = document.querySelector(`input[name="type"][value="${item.type}"]`);
     if (radio) { radio.checked = true; radio.dispatchEvent(new Event('change')); }
 
-    // تحميل الصور المحفوظة
+    // طھط­ظ…ظٹظ„ ط§ظ„طµظˆط± ط§ظ„ظ…ط­ظپظˆط¸ط©
     const imgs = item.images && item.images.length ? item.images : (item.image ? [item.image] : []);
     uploadedImages = [];
     const loadPromises = imgs.map(async src => {
@@ -655,12 +655,12 @@ function editItem(id) {
     Promise.all(loadPromises).then(renderUploadedGrid);
 
     $('cancel-edit-btn').style.display = 'inline-flex';
-    $('form-view-title').innerHTML = '<i class="fa-solid fa-pen"></i> تعديل المحتوى';
-    $('save-btn-text').textContent = 'حفظ التعديلات';
+    $('form-view-title').innerHTML = '<i class="fa-solid fa-pen"></i> طھط¹ط¯ظٹظ„ ط§ظ„ظ…ط­طھظˆظ‰';
+    $('save-btn-text').textContent = 'ط­ظپط¸ ط§ظ„طھط¹ط¯ظٹظ„ط§طھ';
 }
 
 function deleteItem(id) {
-    if (!confirm('هل تريدين حذف هذه البطاقة؟')) return;
+    if (!confirm('ظ‡ظ„ طھط±ظٹط¯ظٹظ† ط­ط°ظپ ظ‡ط°ظ‡ ط§ظ„ط¨ط·ط§ظ‚ط©طں')) return;
     const item = allItems.find(i => i.id === id);
     if (item && item.image && item.image.startsWith('idb://')) {
         IDB.del(item.image.slice(6)).catch(() => {});
@@ -672,7 +672,7 @@ function deleteItem(id) {
 }
 
 // ====================================================
-//  تشغيل عند فتح الصفحة
+//  طھط´ط؛ظٹظ„ ط¹ظ†ط¯ ظپطھط­ ط§ظ„طµظپط­ط©
 // ====================================================
 checkLogin();
 </script>
